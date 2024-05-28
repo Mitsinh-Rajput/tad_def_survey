@@ -368,12 +368,7 @@ class _QuestionTwoState extends State<QuestionTwo> {
                     height: 40,
                   ),
                   TextFormField(
-                    controller: TextEditingController(text: authController.QuestionSecondAnswer),
-                    onChanged: (val) {
-                      setState(() {
-                        authController.QuestionSecondAnswer = val;
-                      });
-                    },
+                    controller: authController.QuestionSecondAnswer,
                     maxLines: 12,
                     decoration: CustomDecoration.inputDecoration(borderColor: Colors.black38),
                   ),
@@ -875,12 +870,7 @@ class _QuestionSevenState extends State<QuestionSeven> {
                     height: 40,
                   ),
                   TextFormField(
-                    controller: TextEditingController(text: authController.QuestionSevenAnswer),
-                    onChanged: (val) {
-                      setState(() {
-                        authController.QuestionSevenAnswer = val;
-                      });
-                    },
+                    controller: authController.QuestionSevenAnswer,
                     maxLines: 10,
                     decoration: CustomDecoration.inputDecoration(borderColor: Colors.black38),
                   ),

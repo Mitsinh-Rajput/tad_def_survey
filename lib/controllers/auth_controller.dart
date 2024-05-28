@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get_connect.dart';
@@ -18,6 +19,7 @@ import '../generated/assets.dart';
 
 class AuthController extends GetxController implements GetxService {
   final AuthRepo authRepo;
+
   AuthController({required this.authRepo});
 
   bool _isLoading = false;
@@ -26,9 +28,11 @@ class AuthController extends GetxController implements GetxService {
   late final number = ContactNumber(number: '', countryCode: '+91');
 
   UserModel? _userModel;
+
   UserModel? get userModel => _userModel;
 
   bool get isLoading => _isLoading;
+
   bool get acceptTerms => _acceptTerms;
   PageController pageController = PageController();
 
@@ -79,8 +83,8 @@ class AuthController extends GetxController implements GetxService {
     "15 days",
     ">15 days",
   ];
-  String QuestionSecondAnswer = "";
-  String QuestionSevenAnswer = "";
+  TextEditingController QuestionSecondAnswer = TextEditingController();
+  TextEditingController QuestionSevenAnswer = TextEditingController();
   String QuestionThirdAnswer = "";
   String QuestionOneAnswer = "";
   String QuestionfourthAnswer = "";
@@ -204,13 +208,13 @@ class AuthController extends GetxController implements GetxService {
     comments.clear();
 
     QuestionOneAnswer = "";
-    QuestionSecondAnswer = "";
+    QuestionSecondAnswer.clear();
     QuestionThirdAnswer = "";
     QuestionfourthAnswer = "";
     QuestionfifthAnswer = "";
     QuestionfifthDropDownValue = null;
     QuestionSixAnswer = "";
-    QuestionSevenAnswer = "";
+    QuestionSevenAnswer.clear();
     await pageController.animateToPage(0, duration: const Duration(milliseconds: 50), curve: Curves.ease);
     update();
   }
@@ -221,11 +225,11 @@ class AuthController extends GetxController implements GetxService {
     data['hq'] = threeController.text;
     data['city'] = fourController.text;
     data['question_1'] = QuestionOneAnswer;
-    data['question_2'] = QuestionSecondAnswer;
+    data['question_2'] = QuestionSecondAnswer.text.trim();
     data['question_3'] = QuestionThirdAnswer;
     data['question_4'] = QuestionfourthAnswer;
     data['question_6'] = QuestionSixAnswer;
-    data['question_7'] = QuestionSevenAnswer;
+    data['question_7'] = QuestionSevenAnswer.text.trim();
     if (QuestionfourthAnswer == "Yes") {
       data.addAll({"question_5": "${QuestionfifthAnswer}-${QuestionfifthDropDownValue}"});
     }
