@@ -55,6 +55,7 @@ dev_dependencies:
   #  custom_refresh_indicator: ^2.0.1
   connectivity_plus: ^4.0.1
   assets_audio_player: ^3.0.6
+  flutter_launcher_icons: ^0.13.1
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
@@ -103,3 +104,7 @@ flutter:
     - assets/svgs/
     - assets/fonts/AgencyGothicCT.ttf
     - assets/audios/
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  image_path: "assets/images/logo.jpg"

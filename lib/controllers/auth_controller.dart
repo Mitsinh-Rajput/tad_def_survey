@@ -34,13 +34,15 @@ class AuthController extends GetxController implements GetxService {
 
   Map<String, dynamic> data = {
     "se_name": null,
-    "dr_name": null,
     "hq": null,
+    "dr_name": null,
     "city": null,
-    "q1": null,
-    "q2": null,
-    "q3": null,
-    "feedback": null,
+    "question_1": null,
+    "question_2": null,
+    "question_3": null,
+    "question_4": null,
+    "question_6": null,
+    "question_7": null,
   };
   TextEditingController oneController = TextEditingController();
   TextEditingController twoController = TextEditingController();
@@ -53,9 +55,11 @@ class AuthController extends GetxController implements GetxService {
   late AnimationController controller;
 
   List QuestionOneOption = [
-    "Location",
-    "Size (Carpet Area)",
-    "Developer",
+    "<5",
+    "Between 5-10 pts",
+    "Between 10-15 pts",
+    "Between 15-20 pts",
+    ">20 pts",
   ];
 
   List QuestionSecondOption = [
@@ -65,28 +69,32 @@ class AuthController extends GetxController implements GetxService {
   ];
 
   List QuestionThirdOption = [
-    "Operating System",
-    "Camera Quality",
-    "Battery Life",
+    "Plain Alpha blocker",
+    "Tamsulosin + Deflazacort",
+    "NSAIDs",
+    "Others (Pls specify)"
+  ];
+
+  List QuestionFourthOption = ["Yes", "No"];
+  List QuestionFifthOption = ["Efficiency", "Safety"];
+  List QuestionSixOption = [
+    "7 days",
+    "10 days",
+    "15 days",
+    ">15 days",
   ];
   String QuestionSecondAnswer = "";
+  String QuestionSevenAnswer = "";
   String QuestionThirdAnswer = "";
   String QuestionOneAnswer = "";
+  String QuestionfourthAnswer = "";
+  String QuestionfifthAnswer = "";
+  String QuestionSixAnswer = "";
+  String? QuestionfifthDropDownValue;
 
-  List<bool> QuestionOneCheckBox = [false, false, false];
+  // List<bool> QuestionOneCheckBox = [false, false, false];
   List<bool> QuestionTwoCheckBox = [false, false, false];
   List<bool> QuestionThreeCheckBox = [false, false, false];
-  // void setQuestionOneAnswer(String? value) {
-  //   QuestionOneAnswer = value;
-  // }
-  //
-  // void setQuestionThirdAnswer(String? value) {
-  //   QuestionThirdAnswer = value;
-  // }
-  //
-  // void setQuestionSecondAnswer(String? value) {
-  //   QuestionSecondAnswer = value;
-  // }
 
   List<String> images = [
     Assets.imagesBG,
@@ -94,13 +102,9 @@ class AuthController extends GetxController implements GetxService {
     Assets.imagesBG,
     Assets.imagesBG,
     Assets.imagesBG,
-    Assets.imagesNew1,
-    Assets.imagesD3,
-    Assets.imagesD4,
-    Assets.imagesD5,
-    Assets.imagesNew11,
-    Assets.imagesD7,
-    Assets.imagesNew12,
+    Assets.imagesBG,
+    Assets.imagesBG,
+    Assets.imagesBG,
     Assets.imagesBG,
   ];
 
@@ -122,52 +126,11 @@ class AuthController extends GetxController implements GetxService {
   forwardButton() async {
     focusNode.unfocus();
     if (pageController.page! < images.length && validatePages()) {
-      if (pageController.page! == images.length - 1 && validatePages()) {
-        for (int i = 0; i < QuestionOneCheckBox.length; i++) {
-          if (QuestionOneCheckBox[i]) {
-            if (i == QuestionOneCheckBox.length - 1) {
-              QuestionOneAnswer = QuestionOneAnswer + QuestionOneOption[i];
-            } else {
-              QuestionOneAnswer =
-                  QuestionOneAnswer + QuestionOneOption[i] + ",";
-            }
-          }
-        }
-        if (QuestionOneAnswer.endsWith(",")) {
-          QuestionOneAnswer =
-              QuestionOneAnswer.substring(0, QuestionOneAnswer.length - 1);
-        }
-        for (int i = 0; i < QuestionTwoCheckBox.length; i++) {
-          if (QuestionTwoCheckBox[i]) {
-            if (i == QuestionTwoCheckBox.length - 1) {
-              QuestionSecondAnswer =
-                  QuestionSecondAnswer + QuestionSecondOption[i];
-            } else {
-              QuestionSecondAnswer =
-                  QuestionSecondAnswer + QuestionSecondOption[i] + ",";
-            }
-          }
-        }
-        if (QuestionSecondAnswer.endsWith(",")) {
-          QuestionSecondAnswer = QuestionSecondAnswer.substring(
-              0, QuestionSecondAnswer.length - 1);
-        }
-
-        for (int i = 0; i < QuestionThreeCheckBox.length; i++) {
-          if (QuestionThreeCheckBox[i]) {
-            if (i == QuestionThreeCheckBox.length - 1) {
-              QuestionThirdAnswer =
-                  QuestionThirdAnswer + QuestionThirdOption[i];
-            } else {
-              QuestionThirdAnswer =
-                  QuestionThirdAnswer + QuestionThirdOption[i] + ",";
-            }
-          }
-        }
-        if (QuestionThirdAnswer.endsWith(",")) {
-          QuestionThirdAnswer =
-              QuestionThirdAnswer.substring(0, QuestionThirdAnswer.length - 1);
-        }
+      if (pageController.page! == 5 && QuestionfourthAnswer == "No") {
+        await pageController.animateToPage((pageController.page! + 2).round(),
+            duration: const Duration(milliseconds: 50), curve: Curves.ease);
+        update();
+      } else if (pageController.page! == images.length - 1 && validatePages()) {
         submitForm();
         // await pageController.animateToPage(0, duration: const Duration(milliseconds: 50), curve: Curves.ease);
         // update();
@@ -192,64 +155,47 @@ class AuthController extends GetxController implements GetxService {
       Fluttertoast.showToast(msg: "Please enter all data");
       return false;
     } else if (pageController.page! == 2) {
-      // for (int i = 0; i < QuestionOneCheckBox.length; i++) {
-      //   if (QuestionOneCheckBox[i]) {
-      //     if (i == QuestionOneCheckBox.length - 1) {
-      //       QuestionOneAnswer = QuestionOneAnswer + QuestionOneOption[i];
-      //     } else {
-      //       QuestionOneAnswer = QuestionOneAnswer + QuestionOneOption[i] + ",";
-      //     }
-      //   }
-      // }
-      // if (QuestionOneAnswer.endsWith(",")) {
-      //   QuestionOneAnswer = QuestionOneAnswer.substring(0, QuestionOneAnswer.length - 1);
-      // }
-      if (QuestionOneCheckBox.contains(true)) {
+      if (QuestionOneAnswer != "") {
         return true;
       }
       Fluttertoast.showToast(msg: "Please select an option");
       return false;
     } else if (pageController.page! == 3) {
-      // for (int i = 0; i < QuestionTwoCheckBox.length; i++) {
-      //   if (QuestionTwoCheckBox[i]) {
-      //     if (i == QuestionTwoCheckBox.length - 1) {
-      //       QuestionSecondAnswer = QuestionSecondAnswer + QuestionSecondOption[i];
-      //     } else {
-      //       QuestionSecondAnswer = QuestionSecondAnswer + QuestionSecondOption[i] + ",";
-      //     }
-      //   }
-      // }
-      // if (QuestionSecondAnswer.endsWith(",")) {
-      //   QuestionSecondAnswer = QuestionSecondAnswer.substring(0, QuestionSecondAnswer.length - 1);
-      // }
-      if (QuestionTwoCheckBox.contains(true)) {
+      if (QuestionSecondAnswer != "") {
         return true;
       }
-      Fluttertoast.showToast(msg: "Please select an option");
+      Fluttertoast.showToast(msg: "Please provide value");
       return false;
     } else if (pageController.page! == 4) {
-      // for (int i = 0; i < QuestionThreeCheckBox.length; i++) {
-      //   if (QuestionThreeCheckBox[i]) {
-      //     if (i == QuestionThreeCheckBox.length - 1) {
-      //       QuestionThirdAnswer = QuestionThirdAnswer + QuestionThirdOption[i];
-      //     } else {
-      //       QuestionThirdAnswer = QuestionThirdAnswer + QuestionThirdOption[i] + ",";
-      //     }
-      //   }
-      // }
-      // if (QuestionThirdAnswer.endsWith(",")) {
-      //   QuestionThirdAnswer = QuestionThirdAnswer.substring(0, QuestionThirdAnswer.length - 1);
-      // }
-      if (QuestionThreeCheckBox.contains(true)) {
+      if (QuestionThirdAnswer != "" &&
+          QuestionThirdAnswer != "Others (Pls specify)") {
         return true;
       }
-      Fluttertoast.showToast(msg: "Please select an option");
+      Fluttertoast.showToast(msg: "Please provide value");
       return false;
-    } else if (pageController.page! == images.length - 1) {
-      if (comments.text != "") {
+    } else if (pageController.page! == 5) {
+      if (QuestionfourthAnswer != "") {
         return true;
       }
-      Fluttertoast.showToast(msg: "Please provide a feedback");
+      Fluttertoast.showToast(msg: "Please provide value");
+      return false;
+    } else if (pageController.page! == 6) {
+      if (QuestionfifthAnswer != "" && QuestionfifthDropDownValue != null) {
+        return true;
+      }
+      Fluttertoast.showToast(msg: "Please provide value");
+      return false;
+    } else if (pageController.page! == 7) {
+      if (QuestionSixAnswer != "") {
+        return true;
+      }
+      Fluttertoast.showToast(msg: "Please provide value");
+      return false;
+    } else if (pageController.page! == 8) {
+      if (QuestionSevenAnswer != "") {
+        return true;
+      }
+      Fluttertoast.showToast(msg: "Please provide value");
       return false;
     }
     {
@@ -269,9 +215,11 @@ class AuthController extends GetxController implements GetxService {
     QuestionOneAnswer = "";
     QuestionSecondAnswer = "";
     QuestionThirdAnswer = "";
-    QuestionOneCheckBox = [false, false, false];
-    QuestionTwoCheckBox = [false, false, false];
-    QuestionThreeCheckBox = [false, false, false];
+    QuestionfourthAnswer = "";
+    QuestionfifthAnswer = "";
+    QuestionfifthDropDownValue = null;
+    QuestionSixAnswer = "";
+    QuestionSevenAnswer = "";
     await pageController.animateToPage(0,
         duration: const Duration(milliseconds: 50), curve: Curves.ease);
     update();
@@ -282,10 +230,17 @@ class AuthController extends GetxController implements GetxService {
     data['dr_name'] = twoController.text;
     data['hq'] = threeController.text;
     data['city'] = fourController.text;
-    data['q1'] = QuestionOneAnswer;
-    data['q2'] = QuestionSecondAnswer;
-    data['q3'] = QuestionThirdAnswer;
-    data['feedback'] = comments.text;
+    data['question_1'] = QuestionOneAnswer;
+    data['question_2'] = QuestionSecondAnswer;
+    data['question_3'] = QuestionThirdAnswer;
+    data['question_4'] = QuestionfourthAnswer;
+    data['question_6'] = QuestionSixAnswer;
+    data['question_7'] = QuestionSevenAnswer;
+    if (QuestionfourthAnswer == "Yes") {
+      data.addAll({
+        "question_5": "${QuestionfifthAnswer}-${QuestionfifthDropDownValue}"
+      });
+    }
     if (await connectivity()) {
       //API CALL
       log(
