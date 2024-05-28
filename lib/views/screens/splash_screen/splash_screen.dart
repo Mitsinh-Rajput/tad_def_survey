@@ -193,7 +193,7 @@ class _SplashScreenState extends State<SplashScreen>
                       path: (authController.pageController.page!.round() <
                               authController.images.length - 1)
                           ? Assets.imagesHOME
-                          : Assets.imagesHomeBlue,
+                          : Assets.imagesHOME,
                       height: 60,
                       width: 60,
                     ),
@@ -521,21 +521,13 @@ class _QuestionThreeState extends State<QuestionThree> {
                   );
                 },
               ),
-              if (authController.QuestionThirdAnswer != "Plain Alpha blocker" &&
-                  authController.QuestionThirdAnswer !=
-                      "Tamsulosin + Deflazacort" &&
-                  authController.QuestionThirdAnswer != "NSAIDs" &&
-                  authController.QuestionThirdAnswer != "")
+              if (authController.QuestionThirdAnswer == "Others (Pls specify)")
                 Container(
                   width: 400,
                   decoration: BoxDecoration(border: Border.all(width: 1)),
                   child: TextField(
-                    controller: TextEditingController(
-                        text: authController.QuestionThirdAnswer),
+                    controller: authController.QuestionThirdAnswerForOther,
                     autofocus: true,
-                    onSubmitted: (val) {
-                      authController.QuestionThirdAnswer = val;
-                    },
                   ),
                 )
             ],

@@ -49,6 +49,7 @@ class AuthController extends GetxController implements GetxService {
   TextEditingController threeController = TextEditingController();
   TextEditingController fourController = TextEditingController();
   TextEditingController comments = TextEditingController();
+  TextEditingController QuestionThirdAnswerForOther = TextEditingController();
 
   final FocusNode focusNode = FocusNode();
 
@@ -167,8 +168,10 @@ class AuthController extends GetxController implements GetxService {
       Fluttertoast.showToast(msg: "Please provide value");
       return false;
     } else if (pageController.page! == 4) {
-      if (QuestionThirdAnswer != "" &&
-          QuestionThirdAnswer != "Others (Pls specify)") {
+      if (QuestionThirdAnswer != "") {
+        return true;
+      } else if (QuestionThirdAnswer == "Others (Pls specify)" &&
+          QuestionThirdAnswerForOther.text != "") {
         return true;
       }
       Fluttertoast.showToast(msg: "Please provide value");
@@ -240,6 +243,9 @@ class AuthController extends GetxController implements GetxService {
       data.addAll({
         "question_5": "${QuestionfifthAnswer}-${QuestionfifthDropDownValue}"
       });
+    }
+    if (QuestionThirdAnswer == "Others (Pls specify)") {
+      data['question_3'] = QuestionThirdAnswerForOther.text;
     }
     if (await connectivity()) {
       //API CALL
