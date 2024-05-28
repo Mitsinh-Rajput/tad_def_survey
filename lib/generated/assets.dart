@@ -53,7 +53,6 @@ class Assets {
   static const String imagesExclaim = 'assets/images/exclaim.png';
   static const String imagesForwardBlue = 'assets/images/forward_blue.png';
   static const String imagesHOME = 'assets/images/HOME.png';
-  static const String imagesHomeBlue = 'assets/images/home_blue.png';
   static const String imagesHomeBrown = 'assets/images/home_brown.png';
   static const String imagesLOGO = 'assets/images/LOGO .png';
   static const String imagesLOGO1 = 'assets/images/LOGO 1.png';
