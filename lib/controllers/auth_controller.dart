@@ -81,7 +81,7 @@ class AuthController extends GetxController implements GetxService {
   ];
 
   List QuestionFourthOption = ["Yes", "No"];
-  List QuestionFifthOption = ["Efficiency", "Safety"];
+  List QuestionFifthOption = ["Efficacy", "Safety"];
   List QuestionSixOption = [
     "7 days",
     "10 days",

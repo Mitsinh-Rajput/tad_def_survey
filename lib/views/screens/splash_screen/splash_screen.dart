@@ -17,12 +17,14 @@ class SplashScreen extends StatefulWidget {
   State<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderStateMixin {
+class _SplashScreenState extends State<SplashScreen>
+    with SingleTickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
     Timer.run(() async {
-      await SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeLeft, DeviceOrientation.landscapeRight]);
+      await SystemChrome.setPreferredOrientations(
+          [DeviceOrientation.landscapeLeft, DeviceOrientation.landscapeRight]);
       Future.delayed(const Duration(seconds: 2), () {
         setState(() {});
       });
@@ -81,7 +83,8 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
             if (authController.pageController.hasClients)
               if (authController.pageController.page == 3) const QuestionTwo(),
             if (authController.pageController.hasClients)
-              if (authController.pageController.page == 4) const QuestionThree(),
+              if (authController.pageController.page == 4)
+                const QuestionThree(),
             if (authController.pageController.hasClients)
               if (authController.pageController.page == 5) const QuestionFour(),
             if (authController.pageController.hasClients)
@@ -89,7 +92,8 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
             if (authController.pageController.hasClients)
               if (authController.pageController.page == 7) const QuestionSix(),
             if (authController.pageController.hasClients)
-              if (authController.pageController.page == 8) const QuestionSeven(),
+              if (authController.pageController.page == 8)
+                const QuestionSeven(),
 
             // Sync Button
             if (authController.pageController.hasClients)
@@ -100,7 +104,9 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
                   child: GestureDetector(
                     onTap: () async {
                       // await authController.submitForm();
-                      authController.controller.forward(from: 0).then((value) async {
+                      authController.controller
+                          .forward(from: 0)
+                          .then((value) async {
                         await authController.syncData();
                       });
                     },
@@ -108,7 +114,9 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
                         animation: authController.controller,
                         builder: (context, child) {
                           return Transform.rotate(
-                            angle: authController.controller.value * 2 * 3.14159265359,
+                            angle: authController.controller.value *
+                                2 *
+                                3.14159265359,
                             child: const CustomImage(
                               path: Assets.imagesSyncBlue,
                               height: 75,
@@ -121,20 +129,27 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
 
             // Back Button
             if (authController.pageController.hasClients)
-              if (authController.pageController.page!.round() < authController.images.length && authController.pageController.page!.round() > 0)
+              if (authController.pageController.page!.round() <
+                      authController.images.length &&
+                  authController.pageController.page!.round() > 0)
                 Positioned(
                   bottom: 20,
                   left: 20,
                   child: GestureDetector(
                     onTap: () async {
                       if (authController.pageController.page! > 0) {
-                        if (authController.pageController.page! == 7 && authController.QuestionfourthAnswer == "No") {
-                          await authController.pageController
-                              .animateToPage((authController.pageController.page! - 2).round(), duration: const Duration(milliseconds: 50), curve: Curves.ease);
+                        if (authController.pageController.page! == 7 &&
+                            authController.QuestionfourthAnswer == "No") {
+                          await authController.pageController.animateToPage(
+                              (authController.pageController.page! - 2).round(),
+                              duration: const Duration(milliseconds: 50),
+                              curve: Curves.ease);
                           setState(() {});
                         } else {
-                          await authController.pageController
-                              .animateToPage((authController.pageController.page! - 1).round(), duration: const Duration(milliseconds: 50), curve: Curves.ease);
+                          await authController.pageController.animateToPage(
+                              (authController.pageController.page! - 1).round(),
+                              duration: const Duration(milliseconds: 50),
+                              curve: Curves.ease);
                           setState(() {});
                         }
                       }
@@ -173,7 +188,10 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
                       authController.resetForm();
                     },
                     child: CustomImage(
-                      path: (authController.pageController.page!.round() < authController.images.length - 1) ? Assets.imagesHOME : Assets.imagesHOME,
+                      path: (authController.pageController.page!.round() <
+                              authController.images.length - 1)
+                          ? Assets.imagesHOME
+                          : Assets.imagesHOME,
                       height: 60,
                       width: 60,
                     ),
@@ -251,7 +269,8 @@ class _QuestionOneState extends State<QuestionOne> {
                   ),
                   const Text(
                     "1",
-                    style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF336666)),
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold, color: Color(0xFF336666)),
                   ),
                   Container(
                     height: 1,
@@ -265,7 +284,11 @@ class _QuestionOneState extends State<QuestionOne> {
             Text(
               "On an average how many patients\nwith lower uretric stone do you\ncome across/month",
               textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.labelLarge!.copyWith(fontSize: 50, color: const Color(0xFF336666), height: 0, fontFamily: 'JosefinSans-Bold'),
+              style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                  fontSize: 50,
+                  color: const Color(0xFF336666),
+                  height: 0,
+                  fontFamily: 'JosefinSans-Bold'),
             ),
             const SizedBox(
               height: 20,
@@ -278,7 +301,8 @@ class _QuestionOneState extends State<QuestionOne> {
                 return GestureDetector(
                   onTap: () {
                     setState(() {
-                      authController.QuestionOneAnswer = authController.QuestionOneOption[index];
+                      authController.QuestionOneAnswer =
+                          authController.QuestionOneOption[index];
                     });
                   },
                   child: Row(
@@ -295,7 +319,10 @@ class _QuestionOneState extends State<QuestionOne> {
                       ),
                       Text(
                         authController.QuestionOneOption[index],
-                        style: Theme.of(context).textTheme.labelLarge!.copyWith(fontWeight: FontWeight.w500, color: Colors.black87, fontSize: 40),
+                        style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                            fontWeight: FontWeight.w500,
+                            color: Colors.black87,
+                            fontSize: 40),
                       ),
                     ],
                   ),
@@ -345,7 +372,8 @@ class _QuestionTwoState extends State<QuestionTwo> {
                   ),
                   const Text(
                     "2",
-                    style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF336666)),
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold, color: Color(0xFF336666)),
                   ),
                   Container(
                     height: 1,
@@ -356,7 +384,7 @@ class _QuestionTwoState extends State<QuestionTwo> {
                     height: 20,
                   ),
                   Text(
-                    "Of the lower ureteric stone patients\nseen per month what would the approx.\n% of patients be with stone size <8mm",
+                    "Of the lower ureteric stone patients\nseen per month what would be the approx.\n% of patients with stone size <8mm",
                     style: Theme.of(context).textTheme.labelLarge!.copyWith(
                           fontSize: 40,
                           fontWeight: FontWeight.bold,
@@ -369,7 +397,8 @@ class _QuestionTwoState extends State<QuestionTwo> {
                   TextFormField(
                     controller: authController.QuestionSecondAnswer,
                     maxLines: 12,
-                    decoration: CustomDecoration.inputDecoration(borderColor: Colors.black38),
+                    decoration: CustomDecoration.inputDecoration(
+                        borderColor: Colors.black38),
                   ),
                 ],
               ),
@@ -416,7 +445,8 @@ class _QuestionThreeState extends State<QuestionThree> {
               ),
               const Text(
                 "3",
-                style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF336666)),
+                style: TextStyle(
+                    fontWeight: FontWeight.bold, color: Color(0xFF336666)),
               ),
               Container(
                 height: 1,
@@ -427,10 +457,12 @@ class _QuestionThreeState extends State<QuestionThree> {
               Text(
                 "In your clinical practice what is the\nfirst line of medical therapy for patients\nwith lower ureteric stones <8mm",
                 textAlign: TextAlign.center,
-                style: Theme.of(context)
-                    .textTheme
-                    .labelLarge!
-                    .copyWith(fontSize: 50, color: const Color(0xFF336666), fontWeight: FontWeight.bold, fontFamily: 'JosefinSans-Bold', height: 0),
+                style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                    fontSize: 50,
+                    color: const Color(0xFF336666),
+                    fontWeight: FontWeight.bold,
+                    fontFamily: 'JosefinSans-Bold',
+                    height: 0),
               ),
               const SizedBox(
                 height: 20,
@@ -445,7 +477,8 @@ class _QuestionThreeState extends State<QuestionThree> {
                       GestureDetector(
                         onTap: () {
                           setState(() {
-                            authController.QuestionThirdAnswer = authController.QuestionThirdOption[index];
+                            authController.QuestionThirdAnswer =
+                                authController.QuestionThirdOption[index];
                             authController.update();
                           });
                         },
@@ -464,7 +497,13 @@ class _QuestionThreeState extends State<QuestionThree> {
                             ),
                             Text(
                               authController.QuestionThirdOption[index],
-                              style: Theme.of(context).textTheme.labelLarge!.copyWith(fontWeight: FontWeight.w500, color: Colors.black87, fontSize: 40),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .labelLarge!
+                                  .copyWith(
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.black87,
+                                      fontSize: 40),
                             ),
                           ],
                         ),
@@ -525,7 +564,8 @@ class _QuestionFourState extends State<QuestionFour> {
               ),
               const Text(
                 "4",
-                style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF336666)),
+                style: TextStyle(
+                    fontWeight: FontWeight.bold, color: Color(0xFF336666)),
               ),
               Container(
                 height: 1,
@@ -536,10 +576,12 @@ class _QuestionFourState extends State<QuestionFour> {
               Text(
                 "Have you used the combination of\nTamsulosin + Deflazacort in your\nclinical practice",
                 textAlign: TextAlign.center,
-                style: Theme.of(context)
-                    .textTheme
-                    .labelLarge!
-                    .copyWith(fontSize: 50, color: const Color(0xFF336666), fontWeight: FontWeight.bold, fontFamily: 'JosefinSans-Bold', height: 0),
+                style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                    fontSize: 50,
+                    color: const Color(0xFF336666),
+                    fontWeight: FontWeight.bold,
+                    fontFamily: 'JosefinSans-Bold',
+                    height: 0),
               ),
               const SizedBox(
                 height: 20,
@@ -552,7 +594,8 @@ class _QuestionFourState extends State<QuestionFour> {
                   return GestureDetector(
                     onTap: () {
                       setState(() {
-                        authController.QuestionfourthAnswer = authController.QuestionFourthOption[index];
+                        authController.QuestionfourthAnswer =
+                            authController.QuestionFourthOption[index];
                         authController.update();
                       });
                     },
@@ -571,7 +614,13 @@ class _QuestionFourState extends State<QuestionFour> {
                         ),
                         Text(
                           authController.QuestionFourthOption[index],
-                          style: Theme.of(context).textTheme.labelLarge!.copyWith(fontWeight: FontWeight.w500, color: Colors.black87, fontSize: 40),
+                          style: Theme.of(context)
+                              .textTheme
+                              .labelLarge!
+                              .copyWith(
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.black87,
+                                  fontSize: 40),
                         ),
                       ],
                     ),
@@ -621,7 +670,8 @@ class _QuestionFiveState extends State<QuestionFive> {
               ),
               const Text(
                 "5",
-                style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF336666)),
+                style: TextStyle(
+                    fontWeight: FontWeight.bold, color: Color(0xFF336666)),
               ),
               Container(
                 height: 1,
@@ -632,10 +682,12 @@ class _QuestionFiveState extends State<QuestionFive> {
               Text(
                 "If yes, how would you rate the\ncombination on the scale of 1-5\n(1-Lowest, 5-Highest) on the basis of",
                 textAlign: TextAlign.center,
-                style: Theme.of(context)
-                    .textTheme
-                    .labelLarge!
-                    .copyWith(fontSize: 50, color: const Color(0xFF336666), fontWeight: FontWeight.bold, fontFamily: 'JosefinSans-Bold', height: 0),
+                style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                    fontSize: 50,
+                    color: const Color(0xFF336666),
+                    fontWeight: FontWeight.bold,
+                    fontFamily: 'JosefinSans-Bold',
+                    height: 0),
               ),
               const SizedBox(
                 height: 20,
@@ -656,7 +708,13 @@ class _QuestionFiveState extends State<QuestionFive> {
                               flex: 3,
                               child: Text(
                                 authController.QuestionFifthOption[index],
-                                style: Theme.of(context).textTheme.labelLarge!.copyWith(fontWeight: FontWeight.w500, color: Colors.black87, fontSize: 40),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .labelLarge!
+                                    .copyWith(
+                                        fontWeight: FontWeight.w500,
+                                        color: Colors.black87,
+                                        fontSize: 40),
                               ),
                             ),
                             Expanded(
@@ -669,13 +727,18 @@ class _QuestionFiveState extends State<QuestionFive> {
                                     style: TextStyle(color: Colors.black),
                                   ),
                                   dropdownColor: Colors.white,
-                                  value: authController.QuestionfifthValues[index],
+                                  value:
+                                      authController.QuestionfifthValues[index],
                                   onChanged: (String? newValue) {
                                     setState(() {
-                                      authController.QuestionfifthValues[index] = newValue;
+                                      authController
+                                              .QuestionfifthValues[index] =
+                                          newValue;
                                     });
                                   },
-                                  items: <String>['1', '2', '3', '4', '5'].map<DropdownMenuItem<String>>((String value) {
+                                  items: <String>['1', '2', '3', '4', '5']
+                                      .map<DropdownMenuItem<String>>(
+                                          (String value) {
                                     return DropdownMenuItem<String>(
                                       value: value,
                                       child: Text(value),
@@ -737,7 +800,8 @@ class _QuestionSixState extends State<QuestionSix> {
                   ),
                   const Text(
                     "6",
-                    style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF336666)),
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold, color: Color(0xFF336666)),
                   ),
                   Container(
                     height: 1,
@@ -751,7 +815,11 @@ class _QuestionSixState extends State<QuestionSix> {
             Text(
               "What is the average Rx duration\nof the combination in your\nclinical practice",
               textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.labelLarge!.copyWith(fontSize: 50, color: const Color(0xFF336666), height: 0, fontFamily: 'JosefinSans-Bold'),
+              style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                  fontSize: 50,
+                  color: const Color(0xFF336666),
+                  height: 0,
+                  fontFamily: 'JosefinSans-Bold'),
             ),
             const SizedBox(
               height: 20,
@@ -764,7 +832,8 @@ class _QuestionSixState extends State<QuestionSix> {
                 return GestureDetector(
                   onTap: () {
                     setState(() {
-                      authController.QuestionSixAnswer = authController.QuestionSixOption[index];
+                      authController.QuestionSixAnswer =
+                          authController.QuestionSixOption[index];
                       authController.update();
                     });
                   },
@@ -782,7 +851,10 @@ class _QuestionSixState extends State<QuestionSix> {
                       ),
                       Text(
                         authController.QuestionSixOption[index],
-                        style: Theme.of(context).textTheme.labelLarge!.copyWith(fontWeight: FontWeight.w500, color: Colors.black87, fontSize: 40),
+                        style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                            fontWeight: FontWeight.w500,
+                            color: Colors.black87,
+                            fontSize: 40),
                       ),
                     ],
                   ),
@@ -832,7 +904,8 @@ class _QuestionSevenState extends State<QuestionSeven> {
                   ),
                   const Text(
                     "7",
-                    style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF336666)),
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold, color: Color(0xFF336666)),
                   ),
                   Container(
                     height: 1,
@@ -843,7 +916,7 @@ class _QuestionSevenState extends State<QuestionSeven> {
                     height: 20,
                   ),
                   Text(
-                    "If the combination of Tamsulosin +\nDeflazacort is still not used, any specific\nreason for not utilizing the combination\nin your clinical practice?",
+                    "If the combination of Tamsulosin +\nDeflazacort is still not used, any specific\nreason for not using the combination in\nyour clinical practice?",
                     textAlign: TextAlign.center,
                     style: Theme.of(context).textTheme.labelLarge!.copyWith(
                           fontSize: 40,
@@ -858,7 +931,8 @@ class _QuestionSevenState extends State<QuestionSeven> {
                   TextFormField(
                     controller: authController.QuestionSevenAnswer,
                     maxLines: 10,
-                    decoration: CustomDecoration.inputDecoration(borderColor: Colors.black38),
+                    decoration: CustomDecoration.inputDecoration(
+                        borderColor: Colors.black38),
                   ),
                 ],
               ),
@@ -902,7 +976,10 @@ class _CommentsState extends State<Comments> {
                   ),
                   Text(
                     "Any other comments:",
-                    style: Theme.of(context).textTheme.labelLarge!.copyWith(fontSize: 40, fontWeight: FontWeight.bold, color: const Color(0xFF00a0e3)),
+                    style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                        fontSize: 40,
+                        fontWeight: FontWeight.bold,
+                        color: const Color(0xFF00a0e3)),
                   ),
                   const SizedBox(
                     height: 40,
@@ -910,7 +987,8 @@ class _CommentsState extends State<Comments> {
                   TextFormField(
                     controller: authController.comments,
                     maxLines: 12,
-                    decoration: CustomDecoration.inputDecoration(borderColor: Colors.black38),
+                    decoration: CustomDecoration.inputDecoration(
+                        borderColor: Colors.black38),
                   ),
                 ],
               ),
