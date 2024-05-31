@@ -166,7 +166,7 @@ class AuthController extends GetxController implements GetxService {
       Fluttertoast.showToast(msg: "Please select an option");
       return false;
     } else if (pageController.page! == 3) {
-      if (QuestionSecondAnswer != "") {
+      if (QuestionSecondAnswer.text != "") {
         return true;
       }
       Fluttertoast.showToast(msg: "Please provide value");
@@ -199,7 +199,7 @@ class AuthController extends GetxController implements GetxService {
       Fluttertoast.showToast(msg: "Please provide value");
       return false;
     } else if (pageController.page! == 8) {
-      if (QuestionSevenAnswer != "") {
+      if (QuestionSevenAnswer.text != "") {
         return true;
       }
       Fluttertoast.showToast(msg: "Please provide value");
@@ -218,6 +218,10 @@ class AuthController extends GetxController implements GetxService {
     threeController.clear();
     fourController.clear();
     comments.clear();
+    QuestionfifthValues[0] = null;
+    QuestionfifthValues[1] = null;
+    QuestionThirdAnswerForOther.clear();
+    QuestionSevenAnswer.clear();
 
     QuestionOneAnswer = "";
     QuestionSecondAnswer.clear();
