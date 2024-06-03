@@ -49,8 +49,7 @@ class FormScreen extends StatelessWidget {
                         Expanded(
                           child: TextFormField(
                             controller: authController.oneController,
-                            decoration: CustomDecoration.inputDecoration(
-                                borderColor: Colors.black45),
+                            decoration: CustomDecoration.inputDecoration(borderColor: Colors.black45),
                           ),
                         ),
                       ],
@@ -79,8 +78,7 @@ class FormScreen extends StatelessWidget {
                         Expanded(
                           child: TextFormField(
                             controller: authController.threeController,
-                            decoration: CustomDecoration.inputDecoration(
-                                borderColor: Colors.black45),
+                            decoration: CustomDecoration.inputDecoration(borderColor: Colors.black45),
                           ),
                         ),
                       ],
@@ -106,8 +104,33 @@ class FormScreen extends StatelessWidget {
                         Expanded(
                           child: TextFormField(
                             controller: authController.twoController,
-                            decoration: CustomDecoration.inputDecoration(
-                                borderColor: Colors.black45),
+                            decoration: CustomDecoration.inputDecoration(borderColor: Colors.black45),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: size.height * 0.09,
+                  ),
+                  SizedBox(
+                    width: size.width * .7,
+                    child: Row(
+                      children: [
+                        SizedBox(
+                          width: size.width * .15,
+                          child: const Text(
+                            "Specialty",
+                            style: TextStyle(
+                              fontFamily: 'cc-ultimatum-light',
+                              fontSize: 32,
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          child: TextFormField(
+                            controller: authController.specialtyController,
+                            decoration: CustomDecoration.inputDecoration(borderColor: Colors.black45),
                           ),
                         ),
                       ],
@@ -134,8 +157,7 @@ class FormScreen extends StatelessWidget {
                         Expanded(
                           child: TextFormField(
                             controller: authController.fourController,
-                            decoration: CustomDecoration.inputDecoration(
-                                borderColor: Colors.black45),
+                            decoration: CustomDecoration.inputDecoration(borderColor: Colors.black45),
                           ),
                         ),
                       ],

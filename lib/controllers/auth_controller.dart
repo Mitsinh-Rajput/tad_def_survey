@@ -50,6 +50,7 @@ class AuthController extends GetxController implements GetxService {
   };
   TextEditingController oneController = TextEditingController();
   TextEditingController twoController = TextEditingController();
+  TextEditingController specialtyController = TextEditingController();
   TextEditingController threeController = TextEditingController();
   TextEditingController fourController = TextEditingController();
   TextEditingController comments = TextEditingController();
@@ -73,12 +74,7 @@ class AuthController extends GetxController implements GetxService {
     "Mileage",
   ];
 
-  List QuestionThirdOption = [
-    "Plain Alpha blocker",
-    "Tamsulosin + Deflazacort",
-    "NSAIDs",
-    "Others (Pls specify)"
-  ];
+  List QuestionThirdOption = ["Plain Alpha blocker", "Tamsulosin + Deflazacort", "NSAIDs", "Others (Pls specify)"];
 
   List QuestionFourthOption = ["Yes", "No"];
   List QuestionFifthOption = ["Efficacy", "Safety"];
@@ -132,16 +128,14 @@ class AuthController extends GetxController implements GetxService {
     focusNode.unfocus();
     if (pageController.page! < images.length && validatePages()) {
       if (pageController.page! == 5 && QuestionfourthAnswer == "No") {
-        await pageController.animateToPage((pageController.page! + 2).round(),
-            duration: const Duration(milliseconds: 50), curve: Curves.ease);
+        await pageController.animateToPage((pageController.page! + 2).round(), duration: const Duration(milliseconds: 50), curve: Curves.ease);
         update();
       } else if (pageController.page! == images.length - 1 && validatePages()) {
         submitForm();
         // await pageController.animateToPage(0, duration: const Duration(milliseconds: 50), curve: Curves.ease);
         // update();
       } else {
-        await pageController.animateToPage((pageController.page! + 1).round(),
-            duration: const Duration(milliseconds: 50), curve: Curves.ease);
+        await pageController.animateToPage((pageController.page! + 1).round(), duration: const Duration(milliseconds: 50), curve: Curves.ease);
         update();
       }
     }
@@ -151,10 +145,7 @@ class AuthController extends GetxController implements GetxService {
     if (pageController.page! == 0) {
       return true;
     } else if (pageController.page! == 1) {
-      if (oneController.text.isValid &&
-          twoController.text.isValid &&
-          threeController.text.isValid &&
-          fourController.text.isValid) {
+      if (oneController.text.isValid && twoController.text.isValid && specialtyController.text.isValid && threeController.text.isValid && fourController.text.isValid) {
         return true;
       }
       Fluttertoast.showToast(msg: "Please enter all data");
@@ -174,8 +165,7 @@ class AuthController extends GetxController implements GetxService {
     } else if (pageController.page! == 4) {
       if (QuestionThirdAnswer != "") {
         return true;
-      } else if (QuestionThirdAnswer == "Others (Pls specify)" &&
-          QuestionThirdAnswerForOther.text != "") {
+      } else if (QuestionThirdAnswer == "Others (Pls specify)" && QuestionThirdAnswerForOther.text != "") {
         return true;
       }
       Fluttertoast.showToast(msg: "Please provide value");
@@ -211,10 +201,10 @@ class AuthController extends GetxController implements GetxService {
   }
 
   resetForm() async {
-    await pageController.animateToPage(0,
-        duration: const Duration(milliseconds: 50), curve: Curves.ease);
+    await pageController.animateToPage(0, duration: const Duration(milliseconds: 50), curve: Curves.ease);
     oneController.clear();
     twoController.clear();
+    specialtyController.clear();
     threeController.clear();
     fourController.clear();
     comments.clear();
@@ -230,14 +220,14 @@ class AuthController extends GetxController implements GetxService {
     QuestionfifthAnswer = "";
     QuestionSixAnswer = "";
     QuestionSevenAnswer.clear();
-    await pageController.animateToPage(0,
-        duration: const Duration(milliseconds: 50), curve: Curves.ease);
+    await pageController.animateToPage(0, duration: const Duration(milliseconds: 50), curve: Curves.ease);
     update();
   }
 
   submitForm() async {
     data['se_name'] = oneController.text;
     data['dr_name'] = twoController.text;
+    data['specialty'] = specialtyController.text;
     data['hq'] = threeController.text;
     data['city'] = fourController.text;
     data['question_1'] = QuestionOneAnswer;
@@ -247,10 +237,7 @@ class AuthController extends GetxController implements GetxService {
     data['question_6'] = QuestionSixAnswer;
     data['question_7'] = QuestionSevenAnswer.text.trim();
     if (QuestionfourthAnswer == "Yes") {
-      data.addAll({
-        "question_5":
-            "Efficiency-${QuestionfifthValues[0]},Safety-${QuestionfifthValues[1]}"
-      });
+      data.addAll({"question_5": "Efficiency-${QuestionfifthValues[0]},Safety-${QuestionfifthValues[1]}"});
     }
     if (QuestionThirdAnswer == "Others (Pls specify)") {
       data['question_3'] = QuestionThirdAnswerForOther.text;
@@ -270,8 +257,7 @@ class AuthController extends GetxController implements GetxService {
           SharedPreferences sharedPreferences = Get.find();
           sharedPreferences.clear();
           log('${sharedPreferences.getString('saved_data')}');
-          List<dynamic> savedData =
-              jsonDecode(sharedPreferences.getString('saved_data') ?? '[]');
+          List<dynamic> savedData = jsonDecode(sharedPreferences.getString('saved_data') ?? '[]');
           savedData.add(data);
           sharedPreferences.setString('saved_data', jsonEncode(savedData));
           resetForm();
@@ -283,8 +269,7 @@ class AuthController extends GetxController implements GetxService {
       });
     } else {
       SharedPreferences sharedPreferences = Get.find();
-      List<dynamic> savedData =
-          jsonDecode(sharedPreferences.getString('saved_data') ?? '[]');
+      List<dynamic> savedData = jsonDecode(sharedPreferences.getString('saved_data') ?? '[]');
       savedData.add(data);
       sharedPreferences.setString('saved_data', jsonEncode(savedData));
       Fluttertoast.showToast(msg: "Data saved locally");
@@ -308,8 +293,7 @@ class AuthController extends GetxController implements GetxService {
         update();
       } else {
         _isLoading = false;
-        responseModel =
-            ResponseModel(false, response.statusText!, response.body['errors']);
+        responseModel = ResponseModel(false, response.statusText!, response.body['errors']);
         update();
       }
     } catch (e) {
@@ -325,8 +309,7 @@ class AuthController extends GetxController implements GetxService {
   syncData() async {
     if (await connectivity()) {
       SharedPreferences sharedPreferences = Get.find();
-      List<dynamic> savedData =
-          jsonDecode(sharedPreferences.getString('saved_data') ?? '[]');
+      List<dynamic> savedData = jsonDecode(sharedPreferences.getString('saved_data') ?? '[]');
       List remaining = [];
       if (savedData.isNotEmpty) {
         log(savedData.toString(), name: "Data available");

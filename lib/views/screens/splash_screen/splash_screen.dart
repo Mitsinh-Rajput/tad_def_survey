@@ -811,7 +811,7 @@ class _QuestionSevenState extends State<QuestionSeven> {
       return Container(
           width: size.width,
           height: size.height,
-          padding: const EdgeInsets.symmetric(horizontal: 70, vertical: 50),
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 50),
           decoration: const BoxDecoration(
             image: DecorationImage(
               fit: BoxFit.cover,
